@@ -1,3 +1,10 @@
+/*!
+\
+\author	yangxunpeng
+\email  313831106@qq.com
+\update
+*/
+
 #pragma once
 #include <atomic>
 

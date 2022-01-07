@@ -7,6 +7,7 @@
 #include <windows.h>
 #include "yc_memory.h"
 #include "yc_vector.h"
+#include <vector>
 
 class MyClass
 {
@@ -34,7 +35,7 @@ int main()
 	LARGE_INTEGER endTime;
 	double runtime = 0.0;
 	QueryPerformanceFrequency(&cpuFreq);
-	QueryPerformanceCounter(&startTime);
+
 
 
 	yc::spin_lock locker;
@@ -60,7 +61,9 @@ int main()
 	byte buf[1024];
 	memset(buf, 1, 1024);
 	yc::vector<byte> vc(&mem);
-	for (int i = 0; i < 500; i++) {
+
+	QueryPerformanceCounter(&startTime);
+	for (int i = 0; i < 5000; i++) {
 		vc.append(buf,1024);
 	}
 
@@ -68,6 +71,20 @@ int main()
 	QueryPerformanceCounter(&endTime);
 	runtime = (((endTime.QuadPart - startTime.QuadPart) * 1000.0f) / cpuFreq.QuadPart);
 	printf("%.15lf\n", runtime);
+
+
+
+	std::vector<byte> stdvc;
+	QueryPerformanceCounter(&startTime);
+	for (int i = 0; i < 5000; i++) {
+		stdvc.emplace_back(1);
+	}
+	QueryPerformanceCounter(&endTime);
+	runtime = (((endTime.QuadPart - startTime.QuadPart) * 1000.0f) / cpuFreq.QuadPart);
+	printf("%.15lf\n", runtime);
+
+
+
 	getchar();
 }
 

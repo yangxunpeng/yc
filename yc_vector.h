@@ -65,7 +65,7 @@ namespace yc
 
 			value_type *pt = nullptr;
 			size_t sizeout = 0;
-			pt = (value_type*)mem_malloc(size * sizeof(value_type),sizeout);
+			pt = (value_type*)mem_malloc(usizet * sizeof(value_type),sizeout);
 			if (!pt)
 				throw std::bad_alloc();
 			if (_pbuf) {
